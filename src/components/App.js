@@ -11,6 +11,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 import ProtectedRoute from './ProtectedRoute';
+import Login from './Login';
 
 
 function App() {
@@ -172,6 +173,7 @@ function App() {
         <Header />
 
         <Switch>
+
           <ProtectedRoute
             exact path="/"
             loggedIn={loggedIn}
@@ -184,11 +186,15 @@ function App() {
             onCardDelete={handleDeleteButtonClick}
             cards={cards}
           />
+
           <Route path="/sign-up"></Route>
-          <Route path="/sign-in"></Route>
+          <Route path="/sign-in">
+            <Login />
+          </Route>
           <Route>
             {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
           </Route>
+
         </Switch>
 
         <Footer />
