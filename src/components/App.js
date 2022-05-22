@@ -12,6 +12,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 import ProtectedRoute from './ProtectedRoute';
 import Login from './Login';
+import Register from './Register';
 
 
 function App() {
@@ -187,7 +188,9 @@ function App() {
             cards={cards}
           />
 
-          <Route path="/sign-up"></Route>
+          <Route path="/sign-up">
+            <Register />
+          </Route>
           <Route path="/sign-in">
             <Login />
           </Route>
