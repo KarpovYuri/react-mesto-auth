@@ -174,7 +174,7 @@ function App() {
         <Switch>
           <ProtectedRoute
             exact path="/"
-            loggedIn={loggedIn}
+            loggedIn={true}
             component={Main}
             onEditProfile={handleEditProfileClick}
             onEditAvatar={handleEditAvatarClick}
