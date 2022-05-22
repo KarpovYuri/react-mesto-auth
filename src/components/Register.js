@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
 export default function Login() {
@@ -29,10 +30,10 @@ export default function Login() {
     <form
       className="auth-form"
       onSubmit={handleSubmit}
-      name="signInForm"
+      name="signUpForm"
       noValidate
     >
-      <h2 className="auth-form__title">Вход</h2>
+      <h2 className="auth-form__title">Регистрация</h2>
       <input
         value={email || ''}
         onChange={handleChangeEmail}
@@ -53,7 +54,8 @@ export default function Login() {
         id="passwordInput"
         autoComplete="off"
       />
-      <button className="auth-form__btn" type="submit" aria-label="Кнопка входа">Войти</button>
+      <button className="auth-form__btn" type="submit" aria-label="Кнопка входа">Зарегистрироваться</button>
+      <Link to="/sign-in" className="auth-form__link fade-opacity">Уже зарегистрированы? Войти</Link>
     </form>
   )
 
