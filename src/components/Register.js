@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 
-export default function Login() {
+export default function Register({ onRegister }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,6 +23,7 @@ export default function Login() {
   function handleSubmit(event) {
     // Запрещаем браузеру переходить по адресу формы
     event.preventDefault();
+    onRegister(email, password);
   }
 
 

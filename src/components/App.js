@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Main from '../components/Main';
 import Footer from '../components/Footer';
@@ -14,6 +14,7 @@ import ProtectedRoute from './ProtectedRoute';
 import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
+import authApi from "../utils/authApi";
 
 
 function App() {
@@ -37,6 +38,10 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+
+
+  // История посещения страниц
+  const history = useHistory();
 
 
   // Получение данных текущего пользователя
@@ -171,6 +176,24 @@ function App() {
   }
 
 
+  // Регистрация пользователя
+  function handleRegisterUser(email, password) {
+    authApi.registerUser(email, password)
+      .then(data => {
+        if (data) {
+          setInfoTooltipPopupOpen(true);
+          setInfoTooltipSuccess(true);
+          history.push('/sign-in');
+        }
+      })
+      .catch(error => {
+        setInfoTooltipPopupOpen(true);
+        setInfoTooltipSuccess(false);
+        console.log(error);
+      })
+  }
+
+
   return (
     <div className="page">
 
@@ -194,7 +217,7 @@ function App() {
           />
 
           <Route path="/sign-up">
-            <Register />
+            <Register onRegister={handleRegisterUser} />
           </Route>
           <Route path="/sign-in">
             <Login />
