@@ -216,7 +216,6 @@ function App() {
   function handleLoginUser(email, password) {
     authApi.loginUser(email, password)
       .then(data => {
-        console.log(data);
         if (data.token) {
           setProfileEmail(email)
           setLoggedIn(true);
@@ -232,12 +231,25 @@ function App() {
   }
 
 
+  // Выход из аккаунта
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    setProfileEmail('')
+    setLoggedIn(false);
+    history.push('/sign-in');
+  }
+
+
   return (
     <div className="page">
 
       <CurrentUserContext.Provider value={currentUser}>
 
-        <Header />
+        <Header
+          loggedIn={loggedIn}
+          email={profileEmail}
+          onSignOut={handleLogout}
+        />
 
         <Switch>
 
@@ -254,14 +266,14 @@ function App() {
             cards={cards}
           />
 
-          <Route>
-            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
-          </Route>
           <Route path="/sign-up">
             <Register onRegister={handleRegisterUser} />
           </Route>
           <Route path="/sign-in">
             <Login onLogin={handleLoginUser} />
+          </Route>
+          <Route>
+            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
           </Route>
 
         </Switch>

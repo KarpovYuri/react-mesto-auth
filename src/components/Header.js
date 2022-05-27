@@ -1,6 +1,6 @@
 import { Link, Route } from 'react-router-dom';
 
-function Header({ loggedIn }) {
+function Header({ loggedIn, email, onLogout }) {
   return (
     <header className="header">
       <a href="#" aria-label="Логотип Mesto Russia" className="header__logo fade-opacity"></a>
@@ -15,6 +15,16 @@ function Header({ loggedIn }) {
           className={`${loggedIn ? 'header__link' : 'header__link header__link_login'}`}>
           Войти
         </Link>
+      </Route>
+      <Route exact path="/">
+        <div className={'header__user-menu'}>
+          <p className='header__email'>{email}</p>
+          <Link to='sign-in'
+            onClick={() => onLogout()}
+            className='header__link header__link_login'>
+            Выйти
+          </Link>
+        </div>
       </Route>
     </header>
   );
