@@ -12,11 +12,13 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
   const {
     inputNameValid,
     inputNameError,
-    inputNameTouched } = useValidation(name, { isEmpty: true, minLength: 5, maxLength: 40 }, 'Name');
+    inputNameTouched
+  } = useValidation(name, { isEmpty: true, minLength: 5, maxLength: 40 }, 'Name');
   const {
     inputDescriptionValid,
     inputDescriptionError,
-    inputDescriptionTouched } = useValidation(description, { isEmpty: true, minLength: 5, maxLength: 50 }, 'Description');
+    inputDescriptionTouched
+  } = useValidation(description, { isEmpty: true, minLength: 5, maxLength: 50 }, 'Description');
 
 
   // Подписка на контекст

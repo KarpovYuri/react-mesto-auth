@@ -14,11 +14,13 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading })
   const {
     inputNameValid,
     inputNameError,
-    inputNameTouched } = useValidation(placeName, { isEmpty: true, minLength: 5, maxLength: 30 }, 'Name');
+    inputNameTouched
+  } = useValidation(placeName, { isEmpty: true, minLength: 5, maxLength: 30 }, 'Name');
   const {
     inputLinkValid,
     inputLinkError,
-    inputLinkTouched } = useValidation(placeLink, { isEmpty: true, isLink: true }, 'Link');
+    inputLinkTouched
+  } = useValidation(placeLink, { isEmpty: true, isLink: true }, 'Link');
 
 
   // Установка названия места
