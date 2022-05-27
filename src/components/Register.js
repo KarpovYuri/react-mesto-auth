@@ -1,11 +1,24 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import useValidation from "../hooks/useValidation";
 
 
 export default function Register({ onRegister }) {
 
+
+  // Созданиее стейт переменных для валидации
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const {
+    inputEmailValid,
+    inputEmailError,
+    inputEmailTouched
+  } = useValidation(email, { isEmpty: true, isEmail: true }, 'Email');
+  const {
+    inputPasswordValid,
+    inputPasswordError,
+    inputPasswordTouched
+  } = useValidation(password, { isEmpty: true, minLength: 5 }, 'Password');
 
 
   // Устанавливаем Email пользователя
@@ -38,24 +51,30 @@ export default function Register({ onRegister }) {
       <input
         value={email || ''}
         onChange={handleChangeEmail}
-        className="auth-form__field"
+        className={`auth-form__field ${!inputEmailValid && inputEmailTouched && 'auth-form__field_type_error'}`}
         placeholder="Email"
         type="email"
         name="email"
         id="emailInput"
         autoComplete="off"
       />
+      <span className={`auth-form__input-error ${!inputEmailValid && inputEmailTouched && 'auth-form__input-error_active'}`}>
+        {inputEmailError}
+      </span>
       <input
         value={password || ''}
         onChange={handleChangePassword}
-        className="auth-form__field"
+        className={`auth-form__field ${!inputPasswordValid && inputPasswordTouched && 'auth-form__field_type_error'}`}
         placeholder="Пароль"
         type="password"
         name="password"
         id="passwordInput"
         autoComplete="off"
       />
-      <button className="auth-form__btn" type="submit" aria-label="Кнопка входа">Зарегистрироваться</button>
+      <span className={`auth-form__input-error ${!inputPasswordValid && inputPasswordTouched && 'auth-form__input-error_active'}`}>
+        {inputPasswordError}
+      </span>
+      <button className="auth-form__btn" type="submit" aria-label="Кнопка регистрации">Зарегистрироваться</button>
       <Link to="/sign-in" className="auth-form__link fade-opacity">Уже зарегистрированы? Войти</Link>
     </form>
   )

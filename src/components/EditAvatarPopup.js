@@ -15,7 +15,8 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading }) {
   const {
     inputLinkValid,
     inputLinkError,
-    inputLinkTouched } = useValidation(avatarLink, { isEmpty: true, isLink: true }, 'Link');
+    inputLinkTouched
+  } = useValidation(avatarLink, { isEmpty: true, isLink: true }, 'Link');
 
 
   // Установка ссылки на аватар
