@@ -67,3 +67,7 @@
 @import url(./blocks/auth-form/__field/auth-form__field.css);
 @import url(./blocks/auth-form/__btn/auth-form__btn.css);
 @import url(./blocks/auth-form/__link/auth-form__link.css);
+
+@import url(./blocks/hamburger/hamburger.css);
+@import url(./blocks/hamburger/__line/hamburger__line.css);
+@import url(./blocks/hamburger/__line/_active/hamburger__line_active.css);
