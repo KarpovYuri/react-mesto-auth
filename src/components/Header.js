@@ -21,14 +21,19 @@ function Header({ loggedIn, email, onLogout }) {
         <Link to='sign-in' className="header__link fade-opacity">Войти</Link>
       </Route>
       <Route exact path="/">
-        <button className="hamburger" onClick={handleClickBurgerMenu}>
+        <button className="hamburger fade-opacity" onClick={handleClickBurgerMenu}>
           <span className={`${isClickBurgerMenu ? 'hamburger__line hamburger__line_active' : 'hamburger__line'}`}></span>
           <span className={`${isClickBurgerMenu ? 'hamburger__line hamburger__line_active' : 'hamburger__line'}`}></span>
           <span className={`${isClickBurgerMenu ? 'hamburger__line hamburger__line_active' : 'hamburger__line'}`}></span>
         </button>
-        <div className={'profile-menu'}>
+        <div className={`${isClickBurgerMenu ? 'profile-menu' : 'profile-menu profile-menu_inactive'}`}>
           <p className="profile-menu__email">{email}</p>
-          <Link to='sign-in' onClick={() => onLogout()} className="profile-menu__link fade-opacity">Выйти</Link>
+          <Link to='sign-in'
+            onClick={() => {
+              setClickBurgerMenu(!isClickBurgerMenu);
+              onLogout();
+            }}
+            className="profile-menu__link fade-opacity">Выйти</Link>
         </div>
       </Route>
     </header>
