@@ -2,28 +2,18 @@ import { Link, Route } from 'react-router-dom';
 
 function Header({ loggedIn, email, onLogout }) {
   return (
-    <header className="header">
+    <header className={`${loggedIn ? 'header header_mobile' : 'header'}`}>
       <a href="#" aria-label="Логотип Mesto Russia" className="header__logo fade-opacity"></a>
       <Route path="/sign-in">
-        <Link to='sign-up'
-          className={`${loggedIn ? 'header__link' : 'header__link header__link_login'}`}>
-          Регистрация
-        </Link>
+        <Link to='sign-up' className="header__link fade-opacity">Регистрация</Link>
       </Route>
       <Route path="/sign-up">
-        <Link to='sign-in'
-          className={`${loggedIn ? 'header__link' : 'header__link header__link_login'}`}>
-          Войти
-        </Link>
+        <Link to='sign-in' className="header__link fade-opacity">Войти</Link>
       </Route>
       <Route exact path="/">
-        <div className={'header__user-menu'}>
-          <p className='header__email'>{email}</p>
-          <Link to='sign-in'
-            onClick={() => onLogout()}
-            className='header__link header__link_login'>
-            Выйти
-          </Link>
+        <div className={'profile-menu'}>
+          <p className="profile-menu__email">{email}</p>
+          <Link to='sign-in' onClick={() => onLogout()} className="profile-menu__link fade-opacity">Выйти</Link>
         </div>
       </Route>
     </header>
