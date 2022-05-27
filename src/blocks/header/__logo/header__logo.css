@@ -14,3 +14,9 @@
     background-size: 104px 25px;
   }
 }
+
+@media (max-width: 633px) {
+  .header__logo {
+    align-self: flex-start;
+  }
+}
