@@ -3,7 +3,7 @@ import PopupWhithForm from "./PopupWithForm";
 import useValidation from "../hooks/useValidation";
 
 
-function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading, closeAllPopups }) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading }) {
 
 
   // Стейты для валидации и очистки формы
@@ -46,7 +46,6 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading, clo
       onClose={onClose}
       onSubmit={handleSubmit}
       formValid={inputLinkValid}
-      closeAllPopups={closeAllPopups}
     >
       <input
         ref={avatarRef}

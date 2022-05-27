@@ -13,6 +13,7 @@ import ConfirmDeletePopup from "./ConfirmDeletePopup";
 import ProtectedRoute from './ProtectedRoute';
 import Login from './Login';
 import Register from './Register';
+import InfoTooltip from './InfoTooltip';
 
 
 function App() {
@@ -23,6 +24,9 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
   const [isImagePopupOpen, setImagePopupOpen] = useState(false);
   const [isCardDeletePopupOpen, setCardDeletePopupOpen] = useState(false);
+  const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
+  const [isInfoTooltipSuccess, setInfoTooltipSuccess] = useState(false);
+
 
   // Создание стейта сохранения/загрузки данных
   const [isRenderLoading, setRenderLoading] = useState(false);
@@ -163,6 +167,7 @@ function App() {
     setAddPlacePopupOpen(false);
     setImagePopupOpen(false);
     setCardDeletePopupOpen(false);
+    setInfoTooltipPopupOpen(false);
   }
 
 
@@ -207,14 +212,12 @@ function App() {
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
           isRenderLoading={isRenderLoading}
-          closeAllPopups={closeAllPopups}
         />
 
         <ImagePopup
           card={selectedCard}
           isOpen={isImagePopupOpen}
           onClose={closeAllPopups}
-          closeAllPopups={closeAllPopups}
         />
 
         <EditAvatarPopup
@@ -222,7 +225,6 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
           isRenderLoading={isRenderLoading}
-          closeAllPopups={closeAllPopups}
         />
 
         <AddPlacePopup
@@ -230,7 +232,6 @@ function App() {
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
           isRenderLoading={isRenderLoading}
-          closeAllPopups={closeAllPopups}
         />
 
         <ConfirmDeletePopup
@@ -239,7 +240,12 @@ function App() {
           card={selectedCard}
           onDeleteCard={handleCardDelete}
           isRenderLoading={isRenderLoading}
-          closeAllPopups={closeAllPopups}
+        />
+
+        <InfoTooltip
+          isOpen={isInfoTooltipPopupOpen}
+          onClose={closeAllPopups}
+          regStatus={isInfoTooltipSuccess}
         />
 
       </CurrentUserContext.Provider>

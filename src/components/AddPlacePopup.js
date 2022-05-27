@@ -3,7 +3,7 @@ import PopupWhithForm from "./PopupWithForm";
 import useValidation from "../hooks/useValidation";
 
 
-function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading, closeAllPopups }) {
+function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading }) {
 
   // Стейты для валидации и очистки формы
   const [placeName, setPlaceName] = useState('');
@@ -58,7 +58,6 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading, c
       onStop={onStop}
       onSubmit={handleSubmit}
       formValid={inputNameValid && inputLinkValid}
-      closeAllPopups={closeAllPopups}
     >
       <input
         value={placeName}

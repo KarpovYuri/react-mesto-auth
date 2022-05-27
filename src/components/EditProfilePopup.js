@@ -4,7 +4,7 @@ import CurrentUserContext from "../contexts/CurrentUserContext";
 import useValidation from "../hooks/useValidation";
 
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading, closeAllPopups }) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
 
   // Созданиее стейт переменных для валидации
   const [name, setName] = useState('');
@@ -66,7 +66,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading, clos
       onClose={onClose}
       onSubmit={handleSubmit}
       formValid={inputNameValid && inputDescriptionValid}
-      closeAllPopups={closeAllPopups}
     >
       <input
         value={name || ''}
