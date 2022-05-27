@@ -11,13 +11,12 @@ function PopupWithForm(
     children,
     labelText,
     buttonText,
-    formValid,
-    closeAllPopups
+    formValid
   }
 ) {
 
   // Закрытие попапов по Escape
-  useEscClose(isOpen, closeAllPopups);
+  useEscClose(isOpen, onClose);
 
 
   return (
