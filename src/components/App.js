@@ -248,7 +248,7 @@ function App() {
         <Header
           loggedIn={loggedIn}
           email={profileEmail}
-          onSignOut={handleLogout}
+          onLogout={handleLogout}
         />
 
         <Switch>
