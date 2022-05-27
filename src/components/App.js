@@ -38,6 +38,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [profileEmail, setProfileEmail] = useState('')
 
 
   // История посещения страниц
@@ -194,6 +195,25 @@ function App() {
   }
 
 
+  // Вход в аккаунт
+  function handleLoginUser(email, password) {
+    authApi.loginUser(email, password)
+      .then(result => {
+        console.log(result);
+        if (result.token) {
+          setProfileEmail(email)
+          setLoggedIn(true);
+          history.push('/')
+        }
+      })
+      .catch(error => {
+        setInfoTooltipPopupOpen(true);
+        setInfoTooltipSuccess(false);
+        console.log(error)
+      })
+  }
+
+
   return (
     <div className="page">
 
@@ -220,7 +240,7 @@ function App() {
             <Register onRegister={handleRegisterUser} />
           </Route>
           <Route path="/sign-in">
-            <Login />
+            <Login onLogin={handleLoginUser} />
           </Route>
           <Route>
             {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}

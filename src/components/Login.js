@@ -22,6 +22,7 @@ export default function Login({ onLogin }) {
   function handleSubmit(event) {
     // Запрещаем браузеру переходить по адресу формы
     event.preventDefault();
+    onLogin(email, password);
   }
 
 
