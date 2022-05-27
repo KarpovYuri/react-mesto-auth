@@ -44,7 +44,7 @@ class AuthApi {
 
   // Проверка токена
   checkToken(token) {
-    return fetch(`${this._baseUrl}users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

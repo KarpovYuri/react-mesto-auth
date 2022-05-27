@@ -45,6 +45,23 @@ function App() {
   const history = useHistory();
 
 
+  // Проверка токена и авторизация пользователя
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      authApi.checkToken(jwt)
+        .then(data => {
+          if (data) {
+            setProfileEmail(data.data.email)
+            setLoggedIn(true)
+            history.push('/');
+          }
+        })
+        .catch(error => { console.log(error); })
+    }
+  }, [history]);
+
+
   // Получение данных текущего пользователя
   useEffect(() => {
     api.getUserInfo()
@@ -198,12 +215,13 @@ function App() {
   // Вход в аккаунт
   function handleLoginUser(email, password) {
     authApi.loginUser(email, password)
-      .then(result => {
-        console.log(result);
-        if (result.token) {
+      .then(data => {
+        console.log(data);
+        if (data.token) {
           setProfileEmail(email)
           setLoggedIn(true);
-          history.push('/')
+          localStorage.setItem('jwt', data.token);
+          history.push('/');
         }
       })
       .catch(error => {
@@ -236,14 +254,14 @@ function App() {
             cards={cards}
           />
 
+          <Route>
+            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+          </Route>
           <Route path="/sign-up">
             <Register onRegister={handleRegisterUser} />
           </Route>
           <Route path="/sign-in">
             <Login onLogin={handleLoginUser} />
-          </Route>
-          <Route>
-            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
           </Route>
 
         </Switch>
