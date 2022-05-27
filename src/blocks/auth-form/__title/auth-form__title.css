@@ -5,3 +5,10 @@
   line-height: 29px;
   margin: 0;
 }
+
+@media (max-width: 633px) {
+  .auth-form__title {
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
