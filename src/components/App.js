@@ -199,16 +199,15 @@ function App() {
     authApi.registerUser(email, password)
       .then(data => {
         if (data) {
-          setIsInfoTooltipPopupOpen(true);
           setIsInfoTooltipSuccess(true);
           history.push('/sign-in');
         }
       })
       .catch(error => {
-        setIsInfoTooltipPopupOpen(true);
         setIsInfoTooltipSuccess(false);
         console.log(error);
       })
+      .finally(() => setIsInfoTooltipPopupOpen(true));
   }
 
 
