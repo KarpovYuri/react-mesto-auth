@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="footer">&copy; 2022 Карпов Юрий</footer>
+    <footer className="footer">&copy; {new Date().getFullYear()} Карпов Юрий</footer>
   );
 }
 
