@@ -7,7 +7,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading }) {
 
 
   // Стейты для валидации и очистки формы
-  const [avatarLink, setAvatarLink] = useState('');
+  const [isAvatarLink, setIsAvatarLink] = useState('');
   const avatarRef = React.useRef();
 
 
@@ -16,12 +16,12 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading }) {
     inputLinkValid,
     inputLinkError,
     inputLinkTouched
-  } = useValidation(avatarLink, { isEmpty: true, isLink: true }, 'Link');
+  } = useValidation(isAvatarLink, { isEmpty: true, isLink: true }, 'Link');
 
 
   // Установка ссылки на аватар
   function handleChangeAvatarLink(event) {
-    setAvatarLink(event.target.value);
+    setIsAvatarLink(event.target.value);
   }
 
 
@@ -32,7 +32,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isRenderLoading }) {
       { avatar: avatarRef.current.value },
       () => {
         avatarRef.current.value = '';
-        setAvatarLink('');
+        setIsAvatarLink('');
       })
   }
 

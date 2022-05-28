@@ -7,18 +7,18 @@ import useValidation from "../hooks/useValidation";
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
 
   // Созданиее стейт переменных для валидации
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [isName, setIsName] = useState('');
+  const [isDescription, setIsDescription] = useState('');
   const {
     inputNameValid,
     inputNameError,
     inputNameTouched
-  } = useValidation(name, { isEmpty: true, minLength: 5, maxLength: 40 }, 'Name');
+  } = useValidation(isName, { isEmpty: true, minLength: 5, maxLength: 40 }, 'Name');
   const {
     inputDescriptionValid,
     inputDescriptionError,
     inputDescriptionTouched
-  } = useValidation(description, { isEmpty: true, minLength: 5, maxLength: 50 }, 'Description');
+  } = useValidation(isDescription, { isEmpty: true, minLength: 5, maxLength: 50 }, 'Description');
 
 
   // Подписка на контекст
@@ -28,20 +28,20 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
   // После загрузки текущего пользователя из API
   // его данные будут использованы в управляемых компонентах.
   React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
+    setIsName(currentUser.name);
+    setIsDescription(currentUser.about);
   }, [currentUser, isOpen]);
 
 
   // Установка имени пользователя
   function handleChangeName(event) {
-    setName(event.target.value);
+    setIsName(event.target.value);
   }
 
 
   // Установка информации о пользователи
   function handleChangeDescription(event) {
-    setDescription(event.target.value);
+    setIsDescription(event.target.value);
   }
 
 
@@ -51,8 +51,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
 
     // Передаём значения управляемых компонентов во внешний обработчик
     onUpdateUser({
-      name,
-      about: description,
+      name: isName,
+      about: isDescription,
     });
 
   }
@@ -70,7 +70,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
       formValid={inputNameValid && inputDescriptionValid}
     >
       <input
-        value={name || ''}
+        value={isName || ''}
         onChange={handleChangeName}
         type="text"
         placeholder="Имя"
@@ -83,7 +83,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRenderLoading }) {
         {inputNameError}
       </span>
       <input
-        value={description || ''}
+        value={isDescription || ''}
         onChange={handleChangeDescription}
         type="text"
         placeholder="О себе"

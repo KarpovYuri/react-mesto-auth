@@ -6,8 +6,8 @@ import useValidation from "../hooks/useValidation";
 function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading }) {
 
   // Стейты для валидации и очистки формы
-  const [placeName, setPlaceName] = useState('');
-  const [placeLink, setPlaceLink] = useState('');
+  const [isPlaceName, setIsPlaceName] = useState('');
+  const [isPlaceLink, setIsPlaceLink] = useState('');
 
 
   // Запуск валидации
@@ -15,23 +15,23 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading })
     inputNameValid,
     inputNameError,
     inputNameTouched
-  } = useValidation(placeName, { isEmpty: true, minLength: 5, maxLength: 30 }, 'Name');
+  } = useValidation(isPlaceName, { isEmpty: true, minLength: 5, maxLength: 30 }, 'Name');
   const {
     inputLinkValid,
     inputLinkError,
     inputLinkTouched
-  } = useValidation(placeLink, { isEmpty: true, isLink: true }, 'Link');
+  } = useValidation(isPlaceLink, { isEmpty: true, isLink: true }, 'Link');
 
 
   // Установка названия места
   function handleChangePlaceName(event) {
-    setPlaceName(event.target.value);
+    setIsPlaceName(event.target.value);
   }
 
 
   // Устанавливаем ссылку на изображение места
   function handleChangePlaceLink(event) {
-    setPlaceLink(event.target.value);
+    setIsPlaceLink(event.target.value);
   }
 
 
@@ -39,12 +39,12 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading })
   function handleSubmit(event) {
     event.preventDefault();
     onAddPlace({
-      name: placeName,
-      link: placeLink,
+      name: isPlaceName,
+      link: isPlaceLink,
     })
       .then(() => {
-        setPlaceName('');
-        setPlaceLink('');
+        setIsPlaceName('');
+        setIsPlaceLink('');
       });
   }
 
@@ -62,7 +62,7 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading })
       formValid={inputNameValid && inputLinkValid}
     >
       <input
-        value={placeName}
+        value={isPlaceName}
         onChange={handleChangePlaceName}
         type="text"
         placeholder="Название"
@@ -75,7 +75,7 @@ function AddPlacePopup({ isOpen, onClose, onStop, onAddPlace, isRenderLoading })
         {inputNameError}
       </span>
       <input
-        value={placeLink}
+        value={isPlaceLink}
         onChange={handleChangePlaceLink}
         type="url"
         placeholder="Ссылка на картинку"

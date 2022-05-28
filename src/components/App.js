@@ -20,25 +20,25 @@ import authApi from "../utils/authApi";
 function App() {
 
   // Создание стейтов открытия попапов
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
-  const [isImagePopupOpen, setImagePopupOpen] = useState(false);
-  const [isCardDeletePopupOpen, setCardDeletePopupOpen] = useState(false);
-  const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
-  const [isInfoTooltipSuccess, setInfoTooltipSuccess] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [isCardDeletePopupOpen, setIsCardDeletePopupOpen] = useState(false);
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+  const [isInfoTooltipSuccess, setIsInfoTooltipSuccess] = useState(false);
 
 
   // Создание стейта сохранения/загрузки данных
-  const [isRenderLoading, setRenderLoading] = useState(false);
+  const [isRenderLoading, setIsRenderLoading] = useState(false);
 
 
   // Стейты текущего пользователя и карточек
-  const [selectedCard, setSelectedCard] = useState({});
-  const [currentUser, setCurrentUser] = useState({});
-  const [cards, setCards] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [profileEmail, setProfileEmail] = useState('')
+  const [isSelectedCard, setIsSelectedCard] = useState({});
+  const [isCurrentUser, setIsCurrentUser] = useState({});
+  const [isCards, setIsCards] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isProfileEmail, setIsProfileEmail] = useState('')
 
 
   // История посещения страниц
@@ -52,8 +52,8 @@ function App() {
       authApi.checkToken(jwt)
         .then(data => {
           if (data) {
-            setProfileEmail(data.data.email)
-            setLoggedIn(true)
+            setIsProfileEmail(data.data.email)
+            setIsLoggedIn(true)
             history.push('/');
           }
         })
@@ -65,7 +65,7 @@ function App() {
   // Получение данных текущего пользователя
   useEffect(() => {
     api.getUserInfo()
-      .then(result => setCurrentUser(result))
+      .then(result => setIsCurrentUser(result))
       .catch(error => console.log(error));
   }, []);
 
@@ -74,7 +74,7 @@ function App() {
   useEffect(() => {
     api.getInitialCards()
       .then(initialCards => {
-        setCards(initialCards);
+        setIsCards(initialCards);
       })
       .catch(error => console.log(error));
   }, []);
@@ -83,12 +83,12 @@ function App() {
   function handleCardLike(card) {
 
     // Проверяем есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i._id === isCurrentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((likeCard) => {
-        setCards(cardsArray => cardsArray.map(item => item._id === card._id ? likeCard : item));
+        setIsCards(cardsArray => cardsArray.map(item => item._id === card._id ? likeCard : item));
       })
       .catch(error => console.log(error));
   }
@@ -96,101 +96,101 @@ function App() {
 
   // Удаление карточки
   function handleCardDelete(card) {
-    setRenderLoading(true);
+    setIsRenderLoading(true);
 
     // Отправляем запрос в API и удаляем карточку
     api.deleteCard(card._id)
       .then(() => {
-        setCards(cardsArray => cardsArray.filter(item => item._id !== card._id));
+        setIsCards(cardsArray => cardsArray.filter(item => item._id !== card._id));
         closeAllPopups();
       })
       .catch(error => console.log(error))
-      .finally(() => setRenderLoading(false));
+      .finally(() => setIsRenderLoading(false));
   }
 
 
   // Сохранение данных нового пользователя
   function handleUpdateUser(newUserData) {
-    setRenderLoading(true);
+    setIsRenderLoading(true);
     api.addUserInfo(newUserData)
       .then(result => {
-        setCurrentUser(result);
+        setIsCurrentUser(result);
         closeAllPopups();
       })
       .catch(error => console.log(error))
-      .finally(() => setRenderLoading(false));
+      .finally(() => setIsRenderLoading(false));
   }
 
 
   // Обновление аватара
   function handleUpdateAvatar(newAvatar, clearForm) {
-    setRenderLoading(true);
+    setIsRenderLoading(true);
     api.updateAvatar(newAvatar)
       .then(result => {
-        setCurrentUser(result);
+        setIsCurrentUser(result);
         closeAllPopups();
         clearForm();
       })
       .catch(error => console.log(error))
-      .finally(() => setRenderLoading(false))
+      .finally(() => setIsRenderLoading(false))
   }
 
 
   // Добавление карточки
   function handleAddPlaceSubmit(newCard) {
-    setRenderLoading(true);
+    setIsRenderLoading(true);
     return new Promise((resolve) => {
       api.addCard(newCard)
         .then(result => {
-          setCards([result, ...cards]);
+          setIsCards([result, ...isCards]);
           closeAllPopups();
           resolve();
         })
         .catch(error => console.log(error))
-        .finally(() => setRenderLoading(false))
+        .finally(() => setIsRenderLoading(false))
     })
   }
 
 
   // Открытие попапа редактирования Аватара
   function handleEditAvatarClick() {
-    setEditAvatarPopupOpen(true);
+    setIsEditAvatarPopupOpen(true);
   }
 
 
   // Открытие попапа редактирования данных профиля
   function handleEditProfileClick() {
-    setEditProfilePopupOpen(true);
+    setIsEditProfilePopupOpen(true);
   }
 
 
   // Открытие попапа добавления карточки места
   function handleAddPlaceClick() {
-    setAddPlacePopupOpen(true);
+    setIsAddPlacePopupOpen(true);
   }
 
 
   // Открытие попапа изображения
   function handleCardClick(card) {
-    setImagePopupOpen(true);
-    setSelectedCard(card);
+    setIsImagePopupOpen(true);
+    setIsSelectedCard(card);
   }
 
   function handleDeleteButtonClick(card) {
-    setCardDeletePopupOpen(true);
-    setSelectedCard(card);
+    setIsCardDeletePopupOpen(true);
+    setIsSelectedCard(card);
   }
 
 
   // Закрытие попапов
   function closeAllPopups() {
-    setRenderLoading(false);
-    setEditAvatarPopupOpen(false);
-    setEditProfilePopupOpen(false);
-    setAddPlacePopupOpen(false);
-    setImagePopupOpen(false);
-    setCardDeletePopupOpen(false);
-    setInfoTooltipPopupOpen(false);
+    setIsRenderLoading(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsImagePopupOpen(false);
+    setIsCardDeletePopupOpen(false);
+    setIsInfoTooltipPopupOpen(false);
   }
 
 
@@ -199,14 +199,14 @@ function App() {
     authApi.registerUser(email, password)
       .then(data => {
         if (data) {
-          setInfoTooltipPopupOpen(true);
-          setInfoTooltipSuccess(true);
+          setIsInfoTooltipPopupOpen(true);
+          setIsInfoTooltipSuccess(true);
           history.push('/sign-in');
         }
       })
       .catch(error => {
-        setInfoTooltipPopupOpen(true);
-        setInfoTooltipSuccess(false);
+        setIsInfoTooltipPopupOpen(true);
+        setIsInfoTooltipSuccess(false);
         console.log(error);
       })
   }
@@ -217,15 +217,15 @@ function App() {
     authApi.loginUser(email, password)
       .then(data => {
         if (data.token) {
-          setProfileEmail(email)
-          setLoggedIn(true);
+          setIsProfileEmail(email)
+          setIsLoggedIn(true);
           localStorage.setItem('jwt', data.token);
           history.push('/');
         }
       })
       .catch(error => {
-        setInfoTooltipPopupOpen(true);
-        setInfoTooltipSuccess(false);
+        setIsInfoTooltipPopupOpen(true);
+        setIsInfoTooltipSuccess(false);
         console.log(error)
       })
   }
@@ -234,8 +234,8 @@ function App() {
   // Выход из аккаунта
   const handleLogout = () => {
     localStorage.removeItem('jwt');
-    setProfileEmail('')
-    setLoggedIn(false);
+    setIsProfileEmail('')
+    setIsLoggedIn(false);
     history.push('/sign-in');
   }
 
@@ -243,11 +243,11 @@ function App() {
   return (
     <div className="page">
 
-      <CurrentUserContext.Provider value={currentUser}>
+      <CurrentUserContext.Provider value={isCurrentUser}>
 
         <Header
-          loggedIn={loggedIn}
-          email={profileEmail}
+          isLoggedIn={isLoggedIn}
+          isProfileEmail={isProfileEmail}
           onLogout={handleLogout}
         />
 
@@ -255,7 +255,7 @@ function App() {
 
           <ProtectedRoute
             exact path="/"
-            loggedIn={loggedIn}
+            isLoggedIn={isLoggedIn}
             component={Main}
             onEditProfile={handleEditProfileClick}
             onEditAvatar={handleEditAvatarClick}
@@ -263,7 +263,7 @@ function App() {
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
             onCardDelete={handleDeleteButtonClick}
-            cards={cards}
+            cards={isCards}
           />
 
           <Route path="/sign-up">
@@ -273,7 +273,7 @@ function App() {
             <Login onLogin={handleLoginUser} />
           </Route>
           <Route>
-            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+            {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
           </Route>
 
         </Switch>
@@ -288,7 +288,7 @@ function App() {
         />
 
         <ImagePopup
-          card={selectedCard}
+          isCard={isSelectedCard}
           isOpen={isImagePopupOpen}
           onClose={closeAllPopups}
         />
@@ -310,7 +310,7 @@ function App() {
         <ConfirmDeletePopup
           isOpen={isCardDeletePopupOpen}
           onClose={closeAllPopups}
-          card={selectedCard}
+          isCard={isSelectedCard}
           onDeleteCard={handleCardDelete}
           isRenderLoading={isRenderLoading}
         />
@@ -318,7 +318,7 @@ function App() {
         <InfoTooltip
           isOpen={isInfoTooltipPopupOpen}
           onClose={closeAllPopups}
-          regStatus={isInfoTooltipSuccess}
+          isSuccess={isInfoTooltipSuccess}
         />
 
       </CurrentUserContext.Provider>

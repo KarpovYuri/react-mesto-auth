@@ -1,12 +1,12 @@
 import PopupWhithForm from "./PopupWithForm";
 
 
-function ConfirmDeletePopup({ isOpen, onClose, onDeleteCard, card, isRenderLoading }) {
+function ConfirmDeletePopup({ isOpen, onClose, onDeleteCard, isCard, isRenderLoading }) {
 
   // Удаляем карточку
   function handleSubmit(event) {
     event.preventDefault();
-    onDeleteCard(card);
+    onDeleteCard(isCard);
   }
 
 

@@ -7,36 +7,36 @@ export default function Register({ onRegister }) {
 
 
   // Созданиее стейт переменных для валидации
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [isEmail, setIsEmail] = useState('');
+  const [isPassword, setIsPassword] = useState('');
   const {
     inputEmailValid,
     inputEmailError,
     inputEmailTouched
-  } = useValidation(email, { isEmpty: true, isEmail: true }, 'Email');
+  } = useValidation(isEmail, { isEmpty: true, isEmail: true }, 'Email');
   const {
     inputPasswordValid,
     inputPasswordError,
     inputPasswordTouched
-  } = useValidation(password, { isEmpty: true, minLength: 5 }, 'Password');
+  } = useValidation(isPassword, { isEmpty: true, minLength: 5 }, 'Password');
 
 
   // Устанавливаем Email пользователя
   function handleChangeEmail(event) {
-    setEmail(event.target.value);
+    setIsEmail(event.target.value);
   }
 
 
   // Устанавливаем пароль пользователя
   function handleChangePassword(event) {
-    setPassword(event.target.value);
+    setIsPassword(event.target.value);
   }
 
 
   function handleSubmit(event) {
     // Запрещаем браузеру переходить по адресу формы
     event.preventDefault();
-    onRegister(email, password);
+    onRegister(isEmail, isPassword);
   }
 
 
@@ -49,7 +49,7 @@ export default function Register({ onRegister }) {
     >
       <h2 className="auth-form__title">Регистрация</h2>
       <input
-        value={email || ''}
+        value={isEmail || ''}
         onChange={handleChangeEmail}
         className={`auth-form__field ${!inputEmailValid && inputEmailTouched && 'auth-form__field_type_error'}`}
         placeholder="Email"
@@ -62,7 +62,7 @@ export default function Register({ onRegister }) {
         {inputEmailError}
       </span>
       <input
-        value={password || ''}
+        value={isPassword || ''}
         onChange={handleChangePassword}
         className={`auth-form__field ${!inputPasswordValid && inputPasswordTouched && 'auth-form__field_type_error'}`}
         placeholder="Пароль"
