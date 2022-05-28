@@ -2,7 +2,7 @@ import React from "react";
 import useEscClose from "../hooks/useEscClose";
 
 
-function InfoTooltip({ isOpen, onClose, regStatus }) {
+function InfoTooltip({ isOpen, onClose, isSuccess }) {
 
   // Закрытие попапов по Escape
   useEscClose(isOpen, onClose);
@@ -12,11 +12,11 @@ function InfoTooltip({ isOpen, onClose, regStatus }) {
       <div onClick={onClose} className="popup__overlay"></div>
       <div className="popup__container popup__container_show_form">
         <div
-          className={`popup__reg-status ${regStatus ? 'popup__reg-status_success' : 'popup__reg-status_fail'}`}
+          className={`popup__reg-status ${isSuccess ? 'popup__reg-status_success' : 'popup__reg-status_fail'}`}
         >
         </div>
         <h2 className="popup__title popup__title_bottom">
-          {regStatus ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте еще раз.'}
+          {isSuccess ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте еще раз.'}
         </h2>
         <button
           type="button"

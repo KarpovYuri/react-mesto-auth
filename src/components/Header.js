@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Link, Route } from 'react-router-dom';
 
-function Header({ loggedIn, email, onLogout }) {
+function Header({ isLoggedIn, isProfileEmail, onLogout }) {
 
-  const [isClickBurgerMenu, setClickBurgerMenu] = useState(false);
+  const [isClickBurgerMenu, setIsClickBurgerMenu] = useState(false);
 
 
   function handleClickBurgerMenu() {
-    setClickBurgerMenu(!isClickBurgerMenu)
+    setIsClickBurgerMenu(!isClickBurgerMenu)
   }
 
 
   return (
-    <header className={`${loggedIn ? 'header header_mobile' : 'header'}`}>
+    <header className={`${isLoggedIn ? 'header header_mobile' : 'header'}`}>
       <a href="#" aria-label="Логотип Mesto Russia" className="header__logo fade-opacity"></a>
       <Route path="/sign-in">
         <Link to='sign-up' className="header__link fade-opacity">Регистрация</Link>
@@ -27,10 +27,10 @@ function Header({ loggedIn, email, onLogout }) {
           <span className={`${isClickBurgerMenu ? 'hamburger__line hamburger__line_active' : 'hamburger__line'}`}></span>
         </button>
         <div className={`${isClickBurgerMenu ? 'profile-menu' : 'profile-menu profile-menu_inactive'}`}>
-          <p className="profile-menu__email">{email}</p>
+          <p className="profile-menu__email">{isProfileEmail}</p>
           <Link to='sign-in'
             onClick={() => {
-              setClickBurgerMenu(!isClickBurgerMenu);
+              setIsClickBurgerMenu(!isClickBurgerMenu);
               onLogout();
             }}
             className="profile-menu__link fade-opacity">Выйти</Link>

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 const useValidation = (value = '', validations, variableName) => {
 
-  const [isTextError, setTextError] = useState('');
-  const [isInputValid, setInputValid] = useState(false);
-  const [isInputTouched, setInputTouched] = useState(false);
+  const [isTextError, setIsTextError] = useState('');
+  const [isInputValid, setIsInputValid] = useState(false);
+  const [isInputTouched, setIsInputTouched] = useState(false);
   const minLength = validations.minLength;
   // eslint-disable-next-line no-useless-escape
   const regExpUrl = /(^https?:\/\/)?[a-z0-9~_\-\.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?$/i;
@@ -15,62 +15,62 @@ const useValidation = (value = '', validations, variableName) => {
       switch (validation) {
         case 'isEmpty':
           if (value) {
-            setInputTouched(true);
-            setInputValid(true);
-            setTextError('');
+            setIsInputTouched(true);
+            setIsInputValid(true);
+            setIsTextError('');
           } else {
-            setInputValid(false);
-            setTextError('Поле должно быть заполнено');
+            setIsInputValid(false);
+            setIsTextError('Поле должно быть заполнено');
           }
           break;
         case 'minLength':
           if (value.length >= validations[validation]) {
-            setInputValid(true);
-            setTextError('');
+            setIsInputValid(true);
+            setIsTextError('');
           } else {
             if (value) {
-              setInputValid(false);
-              setTextError(`Минимальная длинна ${validations[validation]} символов`);
+              setIsInputValid(false);
+              setIsTextError(`Минимальная длинна ${validations[validation]} символов`);
             }
           }
           break;
         case 'maxLength':
           if (value.length <= validations[validation] && value.length > minLength) {
-            setInputValid(true);
-            setTextError('');
+            setIsInputValid(true);
+            setIsTextError('');
           } else {
             if (value.length > validations[validation]) {
-              setInputValid(false);
-              setTextError(`Максимальная длинна ${validations[validation]} символов`);
+              setIsInputValid(false);
+              setIsTextError(`Максимальная длинна ${validations[validation]} символов`);
             }
           }
           break;
         case 'isLink':
           if (regExpUrl.test(value)) {
-            setInputValid(true);
-            setTextError('');
+            setIsInputValid(true);
+            setIsTextError('');
           } else {
             if (value) {
-              setInputValid(false);
-              setTextError(`Введите корректный адрес ссылки`);
+              setIsInputValid(false);
+              setIsTextError(`Введите корректный адрес ссылки`);
             }
           }
           break;
         case 'isEmail':
           if (regExpEmail.test(value)) {
-            setInputValid(true);
-            setTextError('');
+            setIsInputValid(true);
+            setIsTextError('');
           } else {
             if (value) {
-              setInputValid(false);
-              setTextError(`Введите корректный Email`);
+              setIsInputValid(false);
+              setIsTextError(`Введите корректный Email`);
             }
           }
           break;
       }
 
     }
-    if (isInputValid) setInputTouched(false);
+    if (isInputValid) setIsInputTouched(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
